@@ -1,0 +1,52 @@
+{% extends "base_map.html" %}
+
+
+{% block head %}
+
+	<link rel="stylesheet" type="text/css" href="/css/webflow_base.css">
+
+	<style>
+		tr:nth-child(even) {
+		  background-color: #ffffff;
+		}
+
+		tr:nth-child(odd) {
+		  background-color: #808080;
+		}
+	</style>
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+    <div id="container" class="container">
+        <div id="dashboard-top-spacer">&nbsp;</div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="twothirds_div">
+                    <h1>5 Most Recent Users</h1>
+                    <table>
+                    	<tr>
+                    		<th>Display Name</th>
+                    		<th>Tier</th>
+                    		<th>Point Balance</th>
+                    	</tr>
+                    	{% for user in users %}
+                    		<tr>
+                    			<td>{{ user.display_name }}</td>
+                    			<td>{{ user.tier }}</td>
+                    			<td>{{ user.point_balance }}</td>
+                    		</tr>
+                    	{% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

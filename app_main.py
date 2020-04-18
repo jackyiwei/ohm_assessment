@@ -204,5 +204,5 @@ def redirect_to_passthrough(url='/'):
     return redirect(url)
 
 
-
+import pages.community
 import pages.dashboard

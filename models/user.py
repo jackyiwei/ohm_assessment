@@ -154,6 +154,9 @@ class User(db.Model):
     def short_name(self):
         return self.display_name
 
+    def get_email(self):
+        return self.email_address
+
     def get_points_and_dollars(self):
         points = int(self.point_balance)
         return {"points": points, "dollars": points / 100}
@@ -164,22 +167,19 @@ class User(db.Model):
     def is_below_tier(self, tier):
         current_tier = self.get_tier()
 
-        if current_tier == "Platinum":
+        tier_dict = {
+            "Platinum": 1,
+            "Gold": 2,
+            "Silver": 3,
+            "Bronze": 4,
+            "Carbon": 5
+        }
+
+        try:
+            return tier_dict[tier] > tier_dict[current_tier]
+        except KeyError:
             return False
 
-        if current_tier == "Gold" and tier == "Platinum":
-            return True
-
-        if current_tier == "Silver" and tier in ("Gold", "Platinum"):
-            return True
-
-        if current_tier == "Bronze" and tier in ("Silver", "Gold", "Platinum"):
-            return True
-
-        if current_tier == "Carbon" and tier in ("Bronze", "Silver", "Gold", "Platinum"):
-            return True
-
-        return False
 
     # These are for Flask Login --------
     #
